@@ -53,7 +53,8 @@ defmodule PlaygroundWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {PlaygroundWeb.Layouts, :app}
+        layout: {PlaygroundWeb.Layouts, :app},
+        global_prefixes: ["x-"]
 
       unquote(html_helpers())
     end
@@ -69,7 +70,7 @@ defmodule PlaygroundWeb do
 
   def html do
     quote do
-      use Phoenix.Component
+      use Phoenix.Component, global_prefixes: ["x-"]
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
