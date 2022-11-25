@@ -1,0 +1,24 @@
+<div class="container mx-auto my-8">
+  <h1 class="text-5xl text-gray-900 text-center font-serif py-4">AutocompleteSearch Component</h1>
+  <p class="text-xl text-gray-500 text-center font-serif py-4 mx-8">
+    The story of how to build a reusable, dynamic, autocomplete search component with the help of Phoenix LiveView and AlpineJS
+  </p>
+  <%= live_component(PlaygroundWeb.AutocompleteSearchComponent,
+    id: :search,
+    items: @available_items,
+    selected_items: @selected_items
+  ) %>
+  <h3 class="text-2xl text-gray-900 text-center font-serif font-bold">Selected Items</h3>
+  <div class="grid grid-cols-3 gap-4 p-4 justify-center">
+    <%= for item <- @selected_items do %>
+      <div
+        class="px-4 py-2 mx-2 bg-white rounded shadow cursor-pointer"
+        phx-click="deselect-item"
+        phx-value-item={item}
+      >
+        <Heroicons.x_mark mini class="inline btn-close box-content -ml-2 w-4 h-4 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline" />
+        <%= item %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-defmodule PlaygroundWeb.SearchComponent do
+defmodule PlaygroundWeb.AutocompleteSearchComponent do
   use Phoenix.LiveComponent
 
   def render(assigns) do

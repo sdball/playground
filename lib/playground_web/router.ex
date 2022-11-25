@@ -19,7 +19,7 @@ defmodule PlaygroundWeb.Router do
 
     get "/", PageController, :home
     get "/hello", HelloController, :index
-    live "/search", SearchController
+    live "/autocomplete-search", AutocompleteSearchController
   end
 
   # Other scopes may use custom stacks.

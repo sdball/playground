@@ -1,4 +1,4 @@
-defmodule PlaygroundWeb.SearchController do
+defmodule PlaygroundWeb.AutocompleteSearchController do
   use PlaygroundWeb, :live_view
 
   @impl true
@@ -18,15 +18,21 @@ defmodule PlaygroundWeb.SearchController do
 
   @impl true
   def handle_event("search", %{"value" => value}, socket) do
-    available_items = Enum.filter(list_items(), &(String.downcase(&1) =~ String.downcase(value)))
-    {:noreply, assign(socket, :available_items, available_items)}
+    matched_items =
+      list_items()
+      |> then(fn items ->
+        items -- socket.assigns.selected_items
+      end)
+      |> Enum.filter(&(String.downcase(&1) =~ String.downcase(value)))
+
+    {:noreply, assign(socket, :available_items, matched_items)}
   end
 
   @impl true
   def handle_event("deselect-item", %{"item" => item}, socket) do
     socket =
       socket
-      |> assign(:selected_items, socket.assigns.selected_items -- [item])
+      |> assign(:selected_items, socket.assigns.selected_items -- [item] |> Enum.sort())
       |> assign(:available_items, socket.assigns.available_items ++ [item])
 
     {:noreply, socket}
@@ -36,7 +42,7 @@ defmodule PlaygroundWeb.SearchController do
   def handle_info({:item_selected, item}, socket) do
     socket =
       socket
-      |> assign(:selected_items, socket.assigns.selected_items ++ [item])
+      |> assign(:selected_items, socket.assigns.selected_items ++ [item] |> Enum.sort())
       |> assign(:available_items, socket.assigns.available_items -- [item])
 
     {:noreply, socket}
