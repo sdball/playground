@@ -6,6 +6,7 @@
   <%= live_component(PlaygroundWeb.AutocompleteSearchComponent,
     id: :search,
     items: @available_items,
+    items_count: Enum.count(@available_items),
     selected_items: @selected_items
   ) %>
   <h3 class="text-2xl text-gray-900 text-center font-serif font-bold">Selected Items</h3>

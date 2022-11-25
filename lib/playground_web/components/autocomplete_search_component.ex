@@ -16,7 +16,7 @@ defmodule PlaygroundWeb.AutocompleteSearchComponent do
 
       <div class="bg-white mt-2 rounded shadow" x-show="open" @click.away="open = false">
         <div class="p-4 pb-2 italic text-sm text-gray-400">
-          <%= Enum.count(@items) %> Results
+          <%= @items_count %> <%= Inflex.inflect("Results", @items_count) %>
         </div>
         <%= for item <- @items do %>
           <div
