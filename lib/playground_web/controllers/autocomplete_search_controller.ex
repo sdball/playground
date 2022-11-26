@@ -49,25 +49,8 @@ defmodule PlaygroundWeb.AutocompleteSearchController do
   end
 
   defp list_items do
-    [
-      "Item A1",
-      "Item A2",
-      "Item A3",
-      "Item B1",
-      "Item B2",
-      "Item B3",
-      "Item C1",
-      "Item C2",
-      "Item C3",
-      "Item D1",
-      "Item D2",
-      "Item D3",
-      "Item E1",
-      "Item E2",
-      "Item E3",
-      "Item F1",
-      "Item F2",
-      "Item F3"
-    ]
+    for letter <- ?A..?Z, number <- 1..9 do
+      "Item #{letter |> List.wrap() |> List.to_string()}#{number}"
+    end
   end
 end
